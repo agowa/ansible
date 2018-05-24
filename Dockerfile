@@ -41,4 +41,4 @@ RUN pacman -Syu --needed --noconfirm \
     && pacman -Sc --noconfirm
 VOLUME [ "/playbook" ]
 ENV isDocker=True
-CMD [ "/bin/bash", "/playbook/plays/play-*.sh" ]
+CMD [ "/bin/bash", "/playbook/plays/play.sh" ]
