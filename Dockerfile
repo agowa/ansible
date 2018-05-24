@@ -40,4 +40,5 @@ RUN pacman -Syu --needed --noconfirm \
         ansible-lint \
     && pacman -Sc --noconfirm
 VOLUME [ "/playbook" ]
+ENV isDocker=True
 CMD [ "/bin/bash", "/playbook/plays/play-*.sh" ]
