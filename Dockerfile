@@ -2,6 +2,7 @@ FROM base/archlinux:latest
 
 RUN pacman -Syu --needed --noconfirm \
     && pacman -S --needed --noconfirm \
+        bash \
         python2 \
         python \
         lsb-release \
@@ -39,4 +40,4 @@ RUN pacman -Syu --needed --noconfirm \
         ansible-lint \
     && pacman -Sc --noconfirm
 VOLUME [ "/playbook" ]
-CMD [ "/bin/sh", "/playbook/play/play-*.sh" ]
+CMD [ "/bin/bash", "/playbook/plays/play-*.sh" ]
