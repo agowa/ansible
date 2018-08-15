@@ -19,6 +19,7 @@ RUN pacman -Syu --needed --noconfirm \
         python2-jinja \
         python2-httplib2 \
         python2-boto \
+        python2-openstackclient \
         python-crypto \
         python-jinja \
         python-paramiko \
@@ -33,6 +34,7 @@ RUN pacman -Syu --needed --noconfirm \
         python-pyopenssl \
         python-pywinrm \
         python-systemd \
+        python-openstackclient \
         sshpass \
         fakeroot \
         python-setuptools \
