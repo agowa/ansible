@@ -37,6 +37,7 @@ release:
 
 dockerhub:on-schedule:
   stage: deploy
+  image: alpine:latest
   only:
     - schedules
   script:
