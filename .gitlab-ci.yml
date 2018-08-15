@@ -11,12 +11,15 @@ services:
 stages:
   - build
   - release
+  - deploy
 
 before_script:
   - docker login -u gitlab-ci-token -p "$CI_JOB_TOKEN" "$CI_REGISTRY"
 
 build:
   stage: build
+  except:
+    - schedules
   tags:
     - dind
   script:
@@ -25,6 +28,8 @@ build:
 
 release:
   stage: release
+  except:
+    - schedules
   tags:
     - dind
   script:
@@ -33,3 +38,11 @@ release:
     - docker push "$RELEASE_IMAGE"
   only:
     - master
+
+dockerhub:on-schedule:
+  stage: deploy
+  only:
+    - schedules
+  script:
+    - apk add --update curl
+    - curl --data build=true -X POST https://registry.hub.docker.com/u/agowa338/docker-nuget-server/trigger/$dockerhub_trigger_token/
