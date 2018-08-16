@@ -11,15 +11,14 @@ services:
 stages:
   - build
   - release
-
-before_script:
-  - docker login -u gitlab-ci-token -p "$CI_JOB_TOKEN" "$CI_REGISTRY"
+  - deploy
 
 build:
   stage: build
   tags:
     - dind
   script:
+    - docker login -u gitlab-ci-token -p "$CI_JOB_TOKEN" "$CI_REGISTRY"
     - docker build --pull -t "$TEST_IMAGE" .
     - docker push "$TEST_IMAGE"
 
@@ -28,8 +27,18 @@ release:
   tags:
     - dind
   script:
+    - docker login -u gitlab-ci-token -p "$CI_JOB_TOKEN" "$CI_REGISTRY"
     - docker pull "$TEST_IMAGE"
     - docker tag "$TEST_IMAGE" "$RELEASE_IMAGE"
     - docker push "$RELEASE_IMAGE"
   only:
     - master
+
+dockerhub:on-schedule:
+  stage: deploy
+  image: alpine:latest
+  only:
+    - schedules
+  script:
+    - apk add --update curl
+    - curl --data build=true -X POST https://registry.hub.docker.com/u/agowa338/ansible/trigger/$dockerhub_trigger_token/
