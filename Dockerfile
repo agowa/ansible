@@ -20,6 +20,8 @@ RUN pacman -Syu --needed --noconfirm \
         python2-httplib2 \
         python2-boto \
         python2-openstackclient \
+        python2-pip \
+        python-pip \
         python-crypto \
         python-jinja \
         python-paramiko \
@@ -40,7 +42,15 @@ RUN pacman -Syu --needed --noconfirm \
         python-setuptools \
         ansible \
         ansible-lint \
-    && pacman -Sc --noconfirm
+    && pacman -Sc --noconfirm \
+    && pip3 install \
+        python-openstackclient \
+        python-designateclient \
+        shade \
+    && pip2 install \
+        python-openstackclient \
+        python-designateclient \
+        shade
 VOLUME [ "/playbook" ]
 ENV isDocker=True
 CMD [ "/bin/bash", "/playbook/plays/play.sh" ]
