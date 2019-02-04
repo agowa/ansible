@@ -4,6 +4,7 @@ variables:
   DOCKER_DRIVER: overlay2
   TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
   RELEASE_IMAGE: $CI_REGISTRY_IMAGE:latest
+  GIT_SUBMODULE_STRATEGY: recursive
 
 services:
   - docker:dind
@@ -36,9 +37,9 @@ release:
 
 dockerhub:on-schedule:
   stage: deploy
-  image: alpine:latest
   only:
     - schedules
+  image: alpine:latest
   script:
     - apk add --update curl
-    - curl --data build=true -X POST https://registry.hub.docker.com/u/agowa338/ansible/trigger/$dockerhub_trigger_token/
+    - 'curl -X POST -H "Content-Type: application/json" --data "{ \"build\": true }" https://cloud.docker.com/api/build/v1/source/$dockerhub_project_trigger_token/trigger/$dockerhub_trigger_token/call/'
