@@ -1,6 +1,7 @@
 FROM archlinux/base:latest
 
 RUN pacman -Syu --needed --noconfirm \
+    && mkdir /var/cache/pacman/pkg/ \
     && pacman -S --needed --noconfirm \
         bash \
         python2 \
@@ -12,6 +13,7 @@ RUN pacman -Syu --needed --noconfirm \
         git-lfs \
         ca-certificates \
         gzip \
+        unzip \
         tar \
         sudo \
         openssh \
@@ -43,6 +45,12 @@ RUN pacman -Syu --needed --noconfirm \
         python-setuptools \
         ansible \
         ansible-lint \
+        binutils \
+        icu \
+        openssl \
+        dotnet-sdk \
+        less \
+    && mkdir /var/cache/pacman/pkg/ \
     && pacman -Sc --noconfirm \
     && pip3 install \
         python-openstackclient \
@@ -52,6 +60,7 @@ RUN pacman -Syu --needed --noconfirm \
         python-openstackclient \
         python-designateclient \
         shade
+
 VOLUME [ "/playbook" ]
 ENV isDocker=True
 CMD [ "/bin/bash", "/playbook/plays/play.sh" ]
