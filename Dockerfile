@@ -1,10 +1,8 @@
 FROM archlinux/base:latest
 
 RUN pacman -Syu --needed --noconfirm \
-    && mkdir -p /var/cache/pacman/pkg/ \
     && pacman -S --needed --noconfirm \
         bash \
-        python2 \
         python \
         lsb-release \
         curl \
@@ -17,12 +15,6 @@ RUN pacman -Syu --needed --noconfirm \
         tar \
         sudo \
         openssh \
-        python2-yaml \
-        python2-jinja \
-        python2-httplib2 \
-        python2-boto \
-        python2-osc-lib \
-        python2-pip \
         python-pip \
         python-crypto \
         python-jinja \
@@ -50,13 +42,8 @@ RUN pacman -Syu --needed --noconfirm \
         openssl \
         dotnet-sdk \
         less \
-    && mkdir -p /var/cache/pacman/pkg/ \
     && pacman -Sc --noconfirm \
     && pip3 install \
-        python-openstackclient \
-        python-designateclient \
-        shade \
-    && pip2 install \
         python-openstackclient \
         python-designateclient \
         shade
