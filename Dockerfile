@@ -1,7 +1,7 @@
 FROM archlinux/base:latest
 
 RUN pacman -Syu --needed --noconfirm \
-    && mkdir /var/cache/pacman/pkg/ \
+    && mkdir -p /var/cache/pacman/pkg/ \
     && pacman -S --needed --noconfirm \
         bash \
         python2 \
@@ -50,7 +50,7 @@ RUN pacman -Syu --needed --noconfirm \
         openssl \
         dotnet-sdk \
         less \
-    && mkdir /var/cache/pacman/pkg/ \
+    && mkdir -p /var/cache/pacman/pkg/ \
     && pacman -Sc --noconfirm \
     && pip3 install \
         python-openstackclient \
