@@ -1,4 +1,4 @@
-FROM archlinux/base:latest
+FROM archlinux/archlinux:base
 
 RUN pacman -Syu --needed --noconfirm \
     && pacman -S --needed --noconfirm \
