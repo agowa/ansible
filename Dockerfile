@@ -22,6 +22,7 @@ RUN pacman -Syu --needed --noconfirm \
         python-yaml \
         acme-tiny \
         python-boto3 \
+        python-designateclient \
         python-dnspython \
         python-jmespath \
         python-netaddr \
@@ -31,6 +32,7 @@ RUN pacman -Syu --needed --noconfirm \
         python-pywinrm \
         python-systemd \
         python-openstackclient \
+        python-openstacksdk \
         python-osc-lib \
         sshpass \
         fakeroot \
@@ -42,11 +44,10 @@ RUN pacman -Syu --needed --noconfirm \
         openssl \
         dotnet-sdk \
         less \
-    && pacman -Sc --noconfirm \
-    && pip3 install \
-        python-openstackclient \
-        python-designateclient \
-        shade
+    && pacman -S --needed --noconfirm python-os-client-config \
+    && pip3 install --break-system-packages \
+        shade \
+    && pacman -Sc --noconfirm
 
 VOLUME [ "/playbook" ]
 ENV isDocker=True
